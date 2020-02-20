@@ -1,16 +1,18 @@
 jQuery(document).ready(function($){
 	// Change select object type
-	$(document).on('change', '#cp_seo_internal_link_object_type', function(e) { 
+	$(document).on('change', '.cp_seo_internal_link_object_type', function(e) { 
         e.preventDefault();
+
+        var $group = $(this).closest('.cp-seo-internal-link-meta-group');
 
         // If custom link selected show custom link field
         if( $(this).val() == 'custom_link' ) {
-        	$('.form-field-select-url').hide();
-        	$('.form-field-custom-url').show();
+        	$group.find('.form-field-select-url').hide();
+        	$group.find('.form-field-custom-url').show();
         	return false;
         } else {
-        	$('.form-field-select-url').show();
-        	$('.form-field-custom-url').hide();
+        	$group.find('.form-field-select-url').show();
+        	$group.find('.form-field-custom-url').hide();
         }
 
         // Fetch url options for selected object
@@ -21,15 +23,14 @@ jQuery(document).ready(function($){
             data : {
                 action : 'cp_seo_internal_link_ajax',
                 object_type : $(this).val(),
-                selected_id : $('#cp_seo_internal_link_selected').val(),
+                selected_id : $group.find('.cp_seo_internal_link_selected').val(),
                 security : cp_seo_internal_link.check_nonce
             },
             success : function( response ) {
-                console.log(response);
-                $('#cp_seo_internal_link_object_id').html( response.options );
+                $group.find('.cp_seo_internal_link_object_id').html( response.options );
             }
         });
     })
 
-    $('#cp_seo_internal_link_object_type').change(); 
+    $('.cp_seo_internal_link_object_type').change(); 
 });

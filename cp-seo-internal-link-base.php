@@ -191,7 +191,7 @@ class CP_Seo_Internal_Link_Base {
 		if( !empty( $url ) ) {
 			$url = esc_url( $url );
 
-			return sprintf('<a href="%s">%s</a>', $url, $saved_meta['keyword']);
+			return sprintf('<span class="cp-seo-internal-link"><a href="%s">%s</a></span>', $url, $saved_meta['keyword']);
 		}
 	}
 }
